@@ -1,0 +1,296 @@
+[2025-08-28T02:09:03.125+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:09:03.179+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:09:03.189+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:09:03.190+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:09:03.204+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:09:03.214+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1757) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:09:03.215+0000] {standard_task_runner.py:64} INFO - Started process 1759 to run task
+[2025-08-28T02:09:03.219+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '741', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpqmibzy2u']
+[2025-08-28T02:09:03.224+0000] {standard_task_runner.py:91} INFO - Job 741: Subtask load_csv_to_postgres
+[2025-08-28T02:09:03.241+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:09:03.280+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:09:03.422+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:09:03.423+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:09:03.450+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-28T02:09:03.904+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:09:03.906+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/csv_to_postgres_dag.py", line 77, in load_csv_to_postgres
+    df.to_sql(table_name, engine, if_exists="append", index=False, dtype=dtype_mapping)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+[SQL: INSERT INTO shipments (shipment_id, order_id, shipment_date, carrier, tracking_number, delivery_date, shipment_status, status) VALUES (%(shipment_id)s, %(order_id)s, %(shipment_date)s, %(carrier)s, %(tracking_number)s, %(delivery_date)s, %(shipment_status)s, %(status)s)]
+[parameters: ({'shipment_id': 1, 'order_id': 1, 'shipment_date': '2024-10-13', 'carrier': 'UPS', 'tracking_number': 'TRK344284', 'delivery_date': '2024-10-14', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 2, 'order_id': 2, 'shipment_date': '2024-08-27', 'carrier': 'DHL', 'tracking_number': 'TRK718398', 'delivery_date': '2024-08-28', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 3, 'order_id': 3, 'shipment_date': '2024-05-23', 'carrier': 'FedEx', 'tracking_number': 'TRK161368', 'delivery_date': '2024-05-31', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 4, 'order_id': 4, 'shipment_date': '2024-06-06', 'carrier': 'UPS', 'tracking_number': 'TRK890181', 'delivery_date': '2024-06-10', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 5, 'order_id': 5, 'shipment_date': '2024-11-03', 'carrier': 'DHL', 'tracking_number': 'TRK681341', 'delivery_date': '2024-11-08', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 6, 'order_id': 6, 'shipment_date': '2024-05-03', 'carrier': 'FedEx', 'tracking_number': 'TRK076623', 'delivery_date': '2024-05-07', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 7, 'order_id': 7, 'shipment_date': '2023-12-28', 'carrier': 'UPS', 'tracking_number': 'TRK767199', 'delivery_date': '2023-12-30', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 8, 'order_id': 8, 'shipment_date': '2023-11-14', 'carrier': 'DHL', 'tracking_number': 'TRK930895', 'delivery_date': '2023-11-16', 'shipment_status': 'Delivered', 'status': 'preparing'}  ... displaying 10 of 15040 total bound parameter sets ...  {'shipment_id': 15039, 'order_id': 15039, 'shipment_date': '2024-12-15', 'carrier': 'DHL', 'tracking_number': 'TRK149961', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'}, {'shipment_id': 15040, 'order_id': 15040, 'shipment_date': '2024-12-15', 'carrier': 'FedEx', 'tracking_number': 'TRK615720', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'})]
+(Background on this error at: https://sqlalche.me/e/14/9h9h)
+[2025-08-28T02:09:04.006+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T020903, end_date=20250828T020904
+[2025-08-28T02:09:04.067+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 741 for task load_csv_to_postgres ((psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+[SQL: INSERT INTO shipments (shipment_id, order_id, shipment_date, carrier, tracking_number, delivery_date, shipment_status, status) VALUES (%(shipment_id)s, %(order_id)s, %(shipment_date)s, %(carrier)s, %(tracking_number)s, %(delivery_date)s, %(shipment_status)s, %(status)s)]
+[parameters: ({'shipment_id': 1, 'order_id': 1, 'shipment_date': '2024-10-13', 'carrier': 'UPS', 'tracking_number': 'TRK344284', 'delivery_date': '2024-10-14', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 2, 'order_id': 2, 'shipment_date': '2024-08-27', 'carrier': 'DHL', 'tracking_number': 'TRK718398', 'delivery_date': '2024-08-28', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 3, 'order_id': 3, 'shipment_date': '2024-05-23', 'carrier': 'FedEx', 'tracking_number': 'TRK161368', 'delivery_date': '2024-05-31', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 4, 'order_id': 4, 'shipment_date': '2024-06-06', 'carrier': 'UPS', 'tracking_number': 'TRK890181', 'delivery_date': '2024-06-10', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 5, 'order_id': 5, 'shipment_date': '2024-11-03', 'carrier': 'DHL', 'tracking_number': 'TRK681341', 'delivery_date': '2024-11-08', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 6, 'order_id': 6, 'shipment_date': '2024-05-03', 'carrier': 'FedEx', 'tracking_number': 'TRK076623', 'delivery_date': '2024-05-07', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 7, 'order_id': 7, 'shipment_date': '2023-12-28', 'carrier': 'UPS', 'tracking_number': 'TRK767199', 'delivery_date': '2023-12-30', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 8, 'order_id': 8, 'shipment_date': '2023-11-14', 'carrier': 'DHL', 'tracking_number': 'TRK930895', 'delivery_date': '2023-11-16', 'shipment_status': 'Delivered', 'status': 'preparing'}  ... displaying 10 of 15040 total bound parameter sets ...  {'shipment_id': 15039, 'order_id': 15039, 'shipment_date': '2024-12-15', 'carrier': 'DHL', 'tracking_number': 'TRK149961', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'}, {'shipment_id': 15040, 'order_id': 15040, 'shipment_date': '2024-12-15', 'carrier': 'FedEx', 'tracking_number': 'TRK615720', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'})]
+(Background on this error at: https://sqlalche.me/e/14/9h9h); 1759)
+[2025-08-28T02:09:04.113+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-28T02:09:04.162+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:09:04.170+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T02:10:05.238+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:10:05.271+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:10:05.282+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:10:05.283+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:10:05.300+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:10:05.312+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1766) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:10:05.316+0000] {standard_task_runner.py:64} INFO - Started process 1768 to run task
+[2025-08-28T02:10:05.313+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '744', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpgmtjq5yz']
+[2025-08-28T02:10:05.317+0000] {standard_task_runner.py:91} INFO - Job 744: Subtask load_csv_to_postgres
+[2025-08-28T02:10:05.345+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:10:05.389+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:10:05.481+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:10:05.482+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:10:05.505+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-28T02:10:05.694+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:10:05.695+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/csv_to_postgres_dag.py", line 77, in load_csv_to_postgres
+    df.to_sql(table_name, engine, if_exists="append", index=False, dtype=dtype_mapping)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+[SQL: INSERT INTO shipments (shipment_id, order_id, shipment_date, carrier, tracking_number, delivery_date, shipment_status, status) VALUES (%(shipment_id)s, %(order_id)s, %(shipment_date)s, %(carrier)s, %(tracking_number)s, %(delivery_date)s, %(shipment_status)s, %(status)s)]
+[parameters: ({'shipment_id': 1, 'order_id': 1, 'shipment_date': '2024-10-13', 'carrier': 'UPS', 'tracking_number': 'TRK344284', 'delivery_date': '2024-10-14', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 2, 'order_id': 2, 'shipment_date': '2024-08-27', 'carrier': 'DHL', 'tracking_number': 'TRK718398', 'delivery_date': '2024-08-28', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 3, 'order_id': 3, 'shipment_date': '2024-05-23', 'carrier': 'FedEx', 'tracking_number': 'TRK161368', 'delivery_date': '2024-05-31', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 4, 'order_id': 4, 'shipment_date': '2024-06-06', 'carrier': 'UPS', 'tracking_number': 'TRK890181', 'delivery_date': '2024-06-10', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 5, 'order_id': 5, 'shipment_date': '2024-11-03', 'carrier': 'DHL', 'tracking_number': 'TRK681341', 'delivery_date': '2024-11-08', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 6, 'order_id': 6, 'shipment_date': '2024-05-03', 'carrier': 'FedEx', 'tracking_number': 'TRK076623', 'delivery_date': '2024-05-07', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 7, 'order_id': 7, 'shipment_date': '2023-12-28', 'carrier': 'UPS', 'tracking_number': 'TRK767199', 'delivery_date': '2023-12-30', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 8, 'order_id': 8, 'shipment_date': '2023-11-14', 'carrier': 'DHL', 'tracking_number': 'TRK930895', 'delivery_date': '2023-11-16', 'shipment_status': 'Delivered', 'status': 'preparing'}  ... displaying 10 of 15040 total bound parameter sets ...  {'shipment_id': 15039, 'order_id': 15039, 'shipment_date': '2024-12-15', 'carrier': 'DHL', 'tracking_number': 'TRK149961', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'}, {'shipment_id': 15040, 'order_id': 15040, 'shipment_date': '2024-12-15', 'carrier': 'FedEx', 'tracking_number': 'TRK615720', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'})]
+(Background on this error at: https://sqlalche.me/e/14/9h9h)
+[2025-08-28T02:10:05.709+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T021005, end_date=20250828T021005
+[2025-08-28T02:10:05.757+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 744 for task load_csv_to_postgres ((psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type double precision: "preparing"
+LINE 1: ...13', 'UPS', 'TRK344284', '2024-10-14', 'Pending', 'preparing...
+                                                             ^
+
+[SQL: INSERT INTO shipments (shipment_id, order_id, shipment_date, carrier, tracking_number, delivery_date, shipment_status, status) VALUES (%(shipment_id)s, %(order_id)s, %(shipment_date)s, %(carrier)s, %(tracking_number)s, %(delivery_date)s, %(shipment_status)s, %(status)s)]
+[parameters: ({'shipment_id': 1, 'order_id': 1, 'shipment_date': '2024-10-13', 'carrier': 'UPS', 'tracking_number': 'TRK344284', 'delivery_date': '2024-10-14', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 2, 'order_id': 2, 'shipment_date': '2024-08-27', 'carrier': 'DHL', 'tracking_number': 'TRK718398', 'delivery_date': '2024-08-28', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 3, 'order_id': 3, 'shipment_date': '2024-05-23', 'carrier': 'FedEx', 'tracking_number': 'TRK161368', 'delivery_date': '2024-05-31', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 4, 'order_id': 4, 'shipment_date': '2024-06-06', 'carrier': 'UPS', 'tracking_number': 'TRK890181', 'delivery_date': '2024-06-10', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 5, 'order_id': 5, 'shipment_date': '2024-11-03', 'carrier': 'DHL', 'tracking_number': 'TRK681341', 'delivery_date': '2024-11-08', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 6, 'order_id': 6, 'shipment_date': '2024-05-03', 'carrier': 'FedEx', 'tracking_number': 'TRK076623', 'delivery_date': '2024-05-07', 'shipment_status': 'Pending', 'status': 'preparing'}, {'shipment_id': 7, 'order_id': 7, 'shipment_date': '2023-12-28', 'carrier': 'UPS', 'tracking_number': 'TRK767199', 'delivery_date': '2023-12-30', 'shipment_status': 'Delivered', 'status': 'preparing'}, {'shipment_id': 8, 'order_id': 8, 'shipment_date': '2023-11-14', 'carrier': 'DHL', 'tracking_number': 'TRK930895', 'delivery_date': '2023-11-16', 'shipment_status': 'Delivered', 'status': 'preparing'}  ... displaying 10 of 15040 total bound parameter sets ...  {'shipment_id': 15039, 'order_id': 15039, 'shipment_date': '2024-12-15', 'carrier': 'DHL', 'tracking_number': 'TRK149961', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'}, {'shipment_id': 15040, 'order_id': 15040, 'shipment_date': '2024-12-15', 'carrier': 'FedEx', 'tracking_number': 'TRK615720', 'delivery_date': None, 'shipment_status': None, 'status': 'preparing'})]
+(Background on this error at: https://sqlalche.me/e/14/9h9h); 1768)
+[2025-08-28T02:10:05.777+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-28T02:10:05.792+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:10:05.798+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T03:16:38.044+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T03:16:38.081+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:16:38.093+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:16:38.093+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T03:16:38.111+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-27 18:00:00+00:00
+[2025-08-28T03:16:38.119+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1865) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T03:16:38.120+0000] {standard_task_runner.py:64} INFO - Started process 1867 to run task
+[2025-08-28T03:16:38.139+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '772', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpc4ewfv6q']
+[2025-08-28T03:16:38.147+0000] {standard_task_runner.py:91} INFO - Job 772: Subtask load_csv_to_postgres
+[2025-08-28T03:16:38.174+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T03:16:38.247+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T03:16:38.441+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T03:16:38.443+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T03:16:38.504+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-28T03:16:39.414+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 15020 новых строк в таблицу shipments
+[2025-08-28T03:16:39.890+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 10000 новых строк в таблицу customers
+[2025-08-28T03:16:40.820+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 15020 новых строк в таблицу orders
+[2025-08-28T03:16:40.979+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 2000 новых строк в таблицу products
+[2025-08-28T03:16:41.713+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 20046 новых строк в таблицу order_items
+[2025-08-28T03:16:41.727+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 100 новых строк в таблицу suppliers
+[2025-08-28T03:16:42.439+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 15020 новых строк в таблицу payment
+[2025-08-28T03:16:43.614+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для reviews
+[2025-08-28T03:16:43.616+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T03:16:43.616+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T03:16:43.633+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T031638, end_date=20250828T031643
+[2025-08-28T03:16:43.680+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T03:16:43.698+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T03:16:43.705+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T03:21:26.054+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T03:21:26.085+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:21:26.095+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:21:26.096+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T03:21:26.116+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-27 18:00:00+00:00
+[2025-08-28T03:21:26.125+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1878) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T03:21:26.126+0000] {standard_task_runner.py:64} INFO - Started process 1880 to run task
+[2025-08-28T03:21:26.131+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '777', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpp3ffiorv']
+[2025-08-28T03:21:26.133+0000] {standard_task_runner.py:91} INFO - Job 777: Subtask load_csv_to_postgres
+[2025-08-28T03:21:26.150+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T03:21:26.256+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T03:21:26.464+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T03:21:26.466+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T03:21:26.513+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-28T03:21:26.682+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для shipments
+[2025-08-28T03:21:26.781+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для customers
+[2025-08-28T03:21:26.870+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для orders
+[2025-08-28T03:21:26.885+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для products
+[2025-08-28T03:21:27.004+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для order_items
+[2025-08-28T03:21:27.021+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для suppliers
+[2025-08-28T03:21:27.561+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для payment
+[2025-08-28T03:21:28.695+0000] {logging_mixin.py:188} INFO - ℹ Нет новых строк для reviews
+[2025-08-28T03:21:28.695+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T03:21:28.696+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T03:21:28.706+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T032126, end_date=20250828T032128
+[2025-08-28T03:21:28.765+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T03:21:28.787+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T03:21:28.790+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

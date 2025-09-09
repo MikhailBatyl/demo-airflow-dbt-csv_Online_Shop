@@ -1,0 +1,34 @@
+[2025-09-07T00:00:20.483+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-09-07T00:00:20.510+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dbt_run_models.test_dbt_models scheduled__2025-09-06T23:00:00+00:00 [queued]>
+[2025-09-07T00:00:20.520+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dbt_run_models.test_dbt_models scheduled__2025-09-06T23:00:00+00:00 [queued]>
+[2025-09-07T00:00:20.520+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-09-07T00:00:20.541+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): test_dbt_models> on 2025-09-06 23:00:00+00:00
+[2025-09-07T00:00:20.549+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1693) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-09-07T00:00:20.550+0000] {standard_task_runner.py:64} INFO - Started process 1694 to run task
+[2025-09-07T00:00:20.555+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'dbt_run_models', 'test_dbt_models', 'scheduled__2025-09-06T23:00:00+00:00', '--job-id', '1145', '--raw', '--subdir', 'DAGS_FOLDER/dbt_dag.py', '--cfg-path', '/tmp/tmpu147jh6s']
+[2025-09-07T00:00:20.556+0000] {standard_task_runner.py:91} INFO - Job 1145: Subtask test_dbt_models
+[2025-09-07T00:00:20.575+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-09-07T00:00:20.617+0000] {task_command.py:426} INFO - Running <TaskInstance: dbt_run_models.test_dbt_models scheduled__2025-09-06T23:00:00+00:00 [running]> on host b5ea13053d47
+[2025-09-07T00:00:20.803+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dbt_run_models' AIRFLOW_CTX_TASK_ID='test_dbt_models' AIRFLOW_CTX_EXECUTION_DATE='2025-09-06T23:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-09-06T23:00:00+00:00'
+[2025-09-07T00:00:20.809+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-09-07T00:00:20.828+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-09-07T00:00:20.829+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n        cd /usr/app &&         dbt test --profiles-dir /usr/app\n        ']
+[2025-09-07T00:00:20.844+0000] {subprocess.py:86} INFO - Output:
+[2025-09-07T00:00:24.882+0000] {subprocess.py:93} INFO - [0m00:00:24  Running with dbt=1.7.9
+[2025-09-07T00:00:25.629+0000] {subprocess.py:93} INFO - [0m00:00:25  Registered adapter: postgres=1.7.9
+[2025-09-07T00:00:25.690+0000] {subprocess.py:93} INFO - [0m00:00:25  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+[2025-09-07T00:00:25.691+0000] {subprocess.py:93} INFO - There are 1 unused configuration paths:
+[2025-09-07T00:00:25.692+0000] {subprocess.py:93} INFO - - models.my_project.sources
+[2025-09-07T00:00:25.722+0000] {subprocess.py:93} INFO - [0m00:00:25  Found 7 models, 7 sources, 0 exposures, 0 metrics, 401 macros, 0 groups, 0 semantic models
+[2025-09-07T00:00:25.725+0000] {subprocess.py:93} INFO - [0m00:00:25
+[2025-09-07T00:00:25.726+0000] {subprocess.py:93} INFO - [0m00:00:25  Nothing to do. Try checking your model configs and model specification args
+[2025-09-07T00:00:36.241+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-09-07T00:00:36.242+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-09-07T00:00:36.299+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=dbt_run_models, task_id=test_dbt_models, run_id=scheduled__2025-09-06T23:00:00+00:00, execution_date=20250906T230000, start_date=20250907T000020, end_date=20250907T000036
+[2025-09-07T00:00:36.366+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-09-07T00:00:36.401+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-09-07T00:00:36.404+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

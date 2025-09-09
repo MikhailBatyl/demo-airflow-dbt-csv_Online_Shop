@@ -1,0 +1,44 @@
+[2025-08-25T06:54:52.804+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-25T06:54:52.885+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dbt_run_models.run_dbt_models manual__2025-08-25T06:54:51.461859+00:00 [queued]>
+[2025-08-25T06:54:52.906+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dbt_run_models.run_dbt_models manual__2025-08-25T06:54:51.461859+00:00 [queued]>
+[2025-08-25T06:54:52.907+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-08-25T06:54:52.944+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): run_dbt_models> on 2025-08-25 06:54:51.461859+00:00
+[2025-08-25T06:54:52.957+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=46) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-25T06:54:52.959+0000] {standard_task_runner.py:64} INFO - Started process 47 to run task
+[2025-08-25T06:54:52.966+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'dbt_run_models', 'run_dbt_models', 'manual__2025-08-25T06:54:51.461859+00:00', '--job-id', '404', '--raw', '--subdir', 'DAGS_FOLDER/dbt_dag.py', '--cfg-path', '/tmp/tmp6egc78jp']
+[2025-08-25T06:54:52.968+0000] {standard_task_runner.py:91} INFO - Job 404: Subtask run_dbt_models
+[2025-08-25T06:54:52.995+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-25T06:54:53.051+0000] {task_command.py:426} INFO - Running <TaskInstance: dbt_run_models.run_dbt_models manual__2025-08-25T06:54:51.461859+00:00 [running]> on host 6d66cfb6534c
+[2025-08-25T06:54:53.272+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dbt_run_models' AIRFLOW_CTX_TASK_ID='run_dbt_models' AIRFLOW_CTX_EXECUTION_DATE='2025-08-25T06:54:51.461859+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-08-25T06:54:51.461859+00:00'
+[2025-08-25T06:54:53.273+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-25T06:54:53.313+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-08-25T06:54:53.318+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n        cd /usr/app &&         dbt run --profiles-dir /usr/app\n        ']
+[2025-08-25T06:54:53.355+0000] {subprocess.py:86} INFO - Output:
+[2025-08-25T06:55:00.834+0000] {subprocess.py:93} INFO - [0m06:55:00  Running with dbt=1.7.9
+[2025-08-25T06:55:00.839+0000] {subprocess.py:93} INFO - [0m06:55:00  Encountered an error:
+[2025-08-25T06:55:00.841+0000] {subprocess.py:93} INFO - Runtime Error
+[2025-08-25T06:55:00.841+0000] {subprocess.py:93} INFO -   Could not find profile named 'default'
+[2025-08-25T06:55:01.863+0000] {subprocess.py:97} INFO - Command exited with return code 2
+[2025-08-25T06:55:01.865+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-25T06:55:01.886+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 243, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 2.
+[2025-08-25T06:55:01.905+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=dbt_run_models, task_id=run_dbt_models, run_id=manual__2025-08-25T06:54:51.461859+00:00, execution_date=20250825T065451, start_date=20250825T065452, end_date=20250825T065501
+[2025-08-25T06:55:01.957+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 404 for task run_dbt_models (Bash command failed. The command returned a non-zero exit code 2.; 47)
+[2025-08-25T06:55:02.007+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-25T06:55:02.031+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

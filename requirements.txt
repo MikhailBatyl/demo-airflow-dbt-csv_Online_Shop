@@ -1,0 +1,7 @@
+# DBT и драйверы
+dbt-core==1.7.9
+dbt-postgres==1.7.9
+psycopg2-binary
+
+# Прочие библиотеки для Airflow (по необходимости)
+protobuf==4.25.3

@@ -1,0 +1,253 @@
+[2025-08-28T00:00:03.643+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T00:00:03.698+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T00:00:03.722+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T00:00:03.722+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T00:00:03.750+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T00:00:03.766+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1555) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T00:00:03.767+0000] {standard_task_runner.py:64} INFO - Started process 1560 to run task
+[2025-08-28T00:00:03.773+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '693', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmpatxa3hid']
+[2025-08-28T00:00:03.775+0000] {standard_task_runner.py:91} INFO - Job 693: Subtask generate_new_data
+[2025-08-28T00:00:03.800+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T00:00:03.887+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T00:00:04.072+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T00:00:04.075+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T00:00:04.404+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T00:00:04.411+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/generate_fake_shop_csv.py", line 252, in generate_new_data
+    orders.to_csv(os.path.join(CSV_FOLDER, "orders.csv"), index=False, date_format="%Y-%m-%d")
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3902, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/formats/format.py", line 1152, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/formats/csvs.py", line 247, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+PermissionError: [Errno 13] Permission denied: '/opt/airflow/plugins/orders.csv'
+[2025-08-28T00:00:04.428+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T000003, end_date=20250828T000004
+[2025-08-28T00:00:04.447+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 693 for task generate_new_data ([Errno 13] Permission denied: '/opt/airflow/plugins/orders.csv'; 1560)
+[2025-08-28T00:00:04.475+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-28T00:00:04.499+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T00:00:04.503+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T01:46:01.510+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T01:46:01.879+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T01:46:01.890+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T01:46:01.891+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T01:46:01.919+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T01:46:01.933+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1609) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T01:46:01.934+0000] {standard_task_runner.py:64} INFO - Started process 1611 to run task
+[2025-08-28T01:46:01.935+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '696', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmpikn2be6b']
+[2025-08-28T01:46:01.945+0000] {standard_task_runner.py:91} INFO - Job 696: Subtask generate_new_data
+[2025-08-28T01:46:01.968+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T01:46:02.011+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T01:46:02.111+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T01:46:02.112+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T01:46:02.494+0000] {logging_mixin.py:188} INFO - ✅ Добавлено 10 новых заказов с корректными DATE и числовыми значениями
+[2025-08-28T01:46:02.496+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T01:46:02.497+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T01:46:02.506+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T014601, end_date=20250828T014602
+[2025-08-28T01:46:02.555+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T01:46:02.571+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T01:46:02.579+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T02:45:15.612+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:45:16.639+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:45:16.671+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:45:16.671+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:45:16.697+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:45:16.712+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '754', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmpt32p6s8p']
+[2025-08-28T02:45:16.717+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1796) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:45:16.721+0000] {standard_task_runner.py:64} INFO - Started process 1800 to run task
+[2025-08-28T02:45:16.721+0000] {standard_task_runner.py:91} INFO - Job 754: Subtask generate_new_data
+[2025-08-28T02:45:16.739+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:45:16.794+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:45:16.968+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:45:16.969+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:45:29.974+0000] {logging_mixin.py:188} INFO - ✅ Старые order_amount исправлены, новые заказы сгенерированы корректно.
+[2025-08-28T02:45:29.976+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T02:45:29.977+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:45:29.987+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T024516, end_date=20250828T024529
+[2025-08-28T02:45:30.037+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T02:45:30.052+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:45:30.056+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T02:52:11.393+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:52:11.669+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:52:11.676+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:52:11.677+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:52:11.693+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:52:11.701+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1811) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:52:11.702+0000] {standard_task_runner.py:64} INFO - Started process 1813 to run task
+[2025-08-28T02:52:11.706+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '759', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmp5vlikcyh']
+[2025-08-28T02:52:11.708+0000] {standard_task_runner.py:91} INFO - Job 759: Subtask generate_new_data
+[2025-08-28T02:52:11.727+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:52:11.765+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:52:11.948+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:52:11.951+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:52:12.219+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:52:12.221+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/generate_fake_shop_csv.py", line 68, in generate_new_data
+    orders = swap_order_amount_with_last_column(orders)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/generate_fake_shop_csv.py", line 53, in swap_order_amount_with_last_column
+    df.loc[mask, ["order_amount", last_col]] = df.loc[mask, [last_col, "order_amount"]].values
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 885, in __setitem__
+    iloc._setitem_with_indexer(indexer, value, self.name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1893, in _setitem_with_indexer
+    self._setitem_with_indexer_split_path(indexer, value, name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1933, in _setitem_with_indexer_split_path
+    self._setitem_with_indexer_2d_value(indexer, value)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1999, in _setitem_with_indexer_2d_value
+    raise ValueError(
+ValueError: Must have equal len keys and value when setting with an ndarray
+[2025-08-28T02:52:12.244+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T025211, end_date=20250828T025212
+[2025-08-28T02:52:12.269+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 759 for task generate_new_data (Must have equal len keys and value when setting with an ndarray; 1813)
+[2025-08-28T02:52:12.323+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-28T02:52:12.366+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:52:12.372+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T02:55:17.125+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:55:17.720+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:55:17.762+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:55:17.765+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:55:17.833+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:55:17.866+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1817) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:55:17.869+0000] {standard_task_runner.py:64} INFO - Started process 1819 to run task
+[2025-08-28T02:55:17.884+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '761', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmphgmj3u3m']
+[2025-08-28T02:55:17.890+0000] {standard_task_runner.py:91} INFO - Job 761: Subtask generate_new_data
+[2025-08-28T02:55:17.939+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:55:18.017+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:55:18.238+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:55:18.239+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:55:20.117+0000] {logging_mixin.py:188} INFO - ✅ Старые order_amount исправлены, новые заказы сгенерированы корректно.
+[2025-08-28T02:55:20.119+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T02:55:20.119+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:55:20.128+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T025517, end_date=20250828T025520
+[2025-08-28T02:55:20.188+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T02:55:20.213+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:55:20.219+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T02:59:58.509+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T02:59:58.766+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:59:58.775+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T02:59:58.776+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T02:59:58.795+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T02:59:58.803+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1820) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T02:59:58.804+0000] {standard_task_runner.py:64} INFO - Started process 1822 to run task
+[2025-08-28T02:59:58.805+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '762', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmp6ddnij7i']
+[2025-08-28T02:59:58.807+0000] {standard_task_runner.py:91} INFO - Job 762: Subtask generate_new_data
+[2025-08-28T02:59:58.821+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T02:59:58.885+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T02:59:59.114+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T02:59:59.117+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T02:59:59.844+0000] {logging_mixin.py:188} INFO - ✅ Новые заказы сгенерированы корректно, столбец order_amount удалён, 0.0 отсутствуют.
+[2025-08-28T02:59:59.846+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T02:59:59.847+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T02:59:59.860+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T025958, end_date=20250828T025959
+[2025-08-28T02:59:59.910+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T02:59:59.934+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T02:59:59.941+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T03:08:23.888+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T03:08:24.093+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:08:24.100+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:08:24.101+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T03:08:24.115+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T03:08:24.131+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1848) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T03:08:24.133+0000] {standard_task_runner.py:64} INFO - Started process 1850 to run task
+[2025-08-28T03:08:24.135+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '767', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmp3_00ny0n']
+[2025-08-28T03:08:24.140+0000] {standard_task_runner.py:91} INFO - Job 767: Subtask generate_new_data
+[2025-08-28T03:08:24.168+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T03:08:24.246+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T03:08:24.429+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T03:08:24.435+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T03:08:25.605+0000] {logging_mixin.py:188} INFO - ✅ Новые заказы сгенерированы корректно, новые столбцы не добавлены.
+[2025-08-28T03:08:25.607+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T03:08:25.608+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T03:08:25.620+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T030824, end_date=20250828T030825
+[2025-08-28T03:08:25.691+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T03:08:25.715+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T03:08:25.718+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-28T03:14:09.111+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-28T03:14:09.366+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:14:09.376+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [queued]>
+[2025-08-28T03:14:09.377+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-28T03:14:09.407+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_new_data> on 2025-08-27 18:00:00+00:00
+[2025-08-28T03:14:09.424+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1854) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-28T03:14:09.426+0000] {standard_task_runner.py:64} INFO - Started process 1856 to run task
+[2025-08-28T03:14:09.445+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'generate_new_data', 'scheduled__2025-08-27T18:00:00+00:00', '--job-id', '769', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmp303eayt7']
+[2025-08-28T03:14:09.455+0000] {standard_task_runner.py:91} INFO - Job 769: Subtask generate_new_data
+[2025-08-28T03:14:09.487+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-28T03:14:09.594+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.generate_new_data scheduled__2025-08-27T18:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-28T03:14:09.756+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='generate_new_data' AIRFLOW_CTX_EXECUTION_DATE='2025-08-27T18:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-27T18:00:00+00:00'
+[2025-08-28T03:14:09.759+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-28T03:14:10.278+0000] {logging_mixin.py:188} INFO - ✅ Новые заказы сгенерированы корректно, новые столбцы не добавлены.
+[2025-08-28T03:14:10.279+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-28T03:14:10.280+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-28T03:14:10.289+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=generate_new_data, run_id=scheduled__2025-08-27T18:00:00+00:00, execution_date=20250827T180000, start_date=20250828T031409, end_date=20250828T031410
+[2025-08-28T03:14:10.311+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-28T03:14:10.329+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-28T03:14:10.332+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

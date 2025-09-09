@@ -1,0 +1,455 @@
+[2025-08-25T16:02:50.709+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-25T16:02:50.733+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [queued]>
+[2025-08-25T16:02:50.746+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [queued]>
+[2025-08-25T16:02:50.747+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-25T16:02:50.764+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-25 15:00:00+00:00
+[2025-08-25T16:02:50.773+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=871) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-25T16:02:50.774+0000] {standard_task_runner.py:64} INFO - Started process 873 to run task
+[2025-08-25T16:02:50.780+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'load_csv_to_postgres', 'scheduled__2025-08-25T15:00:00+00:00', '--job-id', '546', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmphgpaka5w']
+[2025-08-25T16:02:50.786+0000] {standard_task_runner.py:91} INFO - Job 546: Subtask load_csv_to_postgres
+[2025-08-25T16:02:50.815+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-25T16:02:50.888+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-25T16:02:51.068+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-25T15:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-25T15:00:00+00:00'
+[2025-08-25T16:02:51.070+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-25T16:02:51.096+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-25T16:02:51.159+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.251+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.358+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.443+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.555+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.685+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.837+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:51.937+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.002+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.073+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.176+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.271+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.370+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.474+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.555+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу shipments
+[2025-08-25T16:02:52.603+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.640+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.674+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.707+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.740+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.775+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.838+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.893+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:52.955+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:53.019+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу customers
+[2025-08-25T16:02:53.095+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.143+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.179+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.221+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.270+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.304+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.388+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.457+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.528+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.587+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.644+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.693+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.743+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.786+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.831+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу orders
+[2025-08-25T16:02:53.847+0000] {logging_mixin.py:188} INFO - ✅ Загружено 10 новых строк в таблицу orders
+[2025-08-25T16:02:53.890+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу products
+[2025-08-25T16:02:53.932+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу products
+[2025-08-25T16:02:53.976+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.010+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.046+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.086+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.122+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.159+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.195+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.231+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.370+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.467+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.560+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.642+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.714+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.779+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.837+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.896+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.935+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:54.972+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:55.009+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:55.047+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1000 новых строк в таблицу order_items
+[2025-08-25T16:02:55.055+0000] {logging_mixin.py:188} INFO - ✅ Загружено 22 новых строк в таблицу order_items
+[2025-08-25T16:02:55.066+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-25T16:02:55.100+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-25T16:02:55.101+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/generate_fake_shop_csv.py", line 154, in load_csv_to_postgres
+    chunk.to_sql(table_name, engine, if_exists="append", index=False, dtype=dtype_mapping)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+[SQL: INSERT INTO payment (payment_id, order_id, payment_method, amount, transaction_status, payment_date) VALUES (%(payment_id)s, %(order_id)s, %(payment_method)s, %(amount)s, %(transaction_status)s, %(payment_date)s)]
+[parameters: ({'payment_id': 1, 'order_id': 1, 'payment_method': 'Credit Card', 'amount': 232.15, 'transaction_status': 'Completed', 'payment_date': 968.2403914532979}, {'payment_id': 2, 'order_id': 2, 'payment_method': 'Credit Card', 'amount': 454.44, 'transaction_status': 'Completed', 'payment_date': 247.7984113319129}, {'payment_id': 3, 'order_id': 3, 'payment_method': 'Credit Card', 'amount': 26.14, 'transaction_status': 'Completed', 'payment_date': 506.5239063894484}, {'payment_id': 4, 'order_id': 4, 'payment_method': 'Credit Card', 'amount': 985.7, 'transaction_status': 'Completed', 'payment_date': 239.02639037775214}, {'payment_id': 5, 'order_id': 5, 'payment_method': 'Credit Card', 'amount': 733.32, 'transaction_status': 'Completed', 'payment_date': 593.511465244792}, {'payment_id': 6, 'order_id': 6, 'payment_method': 'Credit Card', 'amount': 629.36, 'transaction_status': 'Completed', 'payment_date': 429.0818349042822}, {'payment_id': 7, 'order_id': 7, 'payment_method': 'Credit Card', 'amount': 461.51, 'transaction_status': 'Completed', 'payment_date': 895.3105490174379}, {'payment_id': 8, 'order_id': 8, 'payment_method': 'Credit Card', 'amount': 464.73, 'transaction_status': 'Completed', 'payment_date': 586.0878509186508}  ... displaying 10 of 1000 total bound parameter sets ...  {'payment_id': 999, 'order_id': 999, 'payment_method': 'Credit Card', 'amount': 156.36, 'transaction_status': 'Completed', 'payment_date': 362.31205975165227}, {'payment_id': 1000, 'order_id': 1000, 'payment_method': 'Credit Card', 'amount': 922.8, 'transaction_status': 'Completed', 'payment_date': 557.1807973107135})]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-08-25T16:02:55.115+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=daily_generate_orders, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-25T15:00:00+00:00, execution_date=20250825T150000, start_date=20250825T160250, end_date=20250825T160255
+[2025-08-25T16:02:55.129+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 546 for task load_csv_to_postgres ((psycopg2.errors.UndefinedColumn) column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+[SQL: INSERT INTO payment (payment_id, order_id, payment_method, amount, transaction_status, payment_date) VALUES (%(payment_id)s, %(order_id)s, %(payment_method)s, %(amount)s, %(transaction_status)s, %(payment_date)s)]
+[parameters: ({'payment_id': 1, 'order_id': 1, 'payment_method': 'Credit Card', 'amount': 232.15, 'transaction_status': 'Completed', 'payment_date': 968.2403914532979}, {'payment_id': 2, 'order_id': 2, 'payment_method': 'Credit Card', 'amount': 454.44, 'transaction_status': 'Completed', 'payment_date': 247.7984113319129}, {'payment_id': 3, 'order_id': 3, 'payment_method': 'Credit Card', 'amount': 26.14, 'transaction_status': 'Completed', 'payment_date': 506.5239063894484}, {'payment_id': 4, 'order_id': 4, 'payment_method': 'Credit Card', 'amount': 985.7, 'transaction_status': 'Completed', 'payment_date': 239.02639037775214}, {'payment_id': 5, 'order_id': 5, 'payment_method': 'Credit Card', 'amount': 733.32, 'transaction_status': 'Completed', 'payment_date': 593.511465244792}, {'payment_id': 6, 'order_id': 6, 'payment_method': 'Credit Card', 'amount': 629.36, 'transaction_status': 'Completed', 'payment_date': 429.0818349042822}, {'payment_id': 7, 'order_id': 7, 'payment_method': 'Credit Card', 'amount': 461.51, 'transaction_status': 'Completed', 'payment_date': 895.3105490174379}, {'payment_id': 8, 'order_id': 8, 'payment_method': 'Credit Card', 'amount': 464.73, 'transaction_status': 'Completed', 'payment_date': 586.0878509186508}  ... displaying 10 of 1000 total bound parameter sets ...  {'payment_id': 999, 'order_id': 999, 'payment_method': 'Credit Card', 'amount': 156.36, 'transaction_status': 'Completed', 'payment_date': 362.31205975165227}, {'payment_id': 1000, 'order_id': 1000, 'payment_method': 'Credit Card', 'amount': 922.8, 'transaction_status': 'Completed', 'payment_date': 557.1807973107135})]
+(Background on this error at: https://sqlalche.me/e/14/f405); 873)
+[2025-08-25T16:02:55.172+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-25T16:02:55.196+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-25T16:02:55.201+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2025-08-25T16:03:31.534+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-25T16:03:34.296+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [queued]>
+[2025-08-25T16:03:34.307+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [queued]>
+[2025-08-25T16:03:34.307+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-25T16:03:34.326+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-25 15:00:00+00:00
+[2025-08-25T16:03:34.336+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=879) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-25T16:03:34.337+0000] {standard_task_runner.py:64} INFO - Started process 885 to run task
+[2025-08-25T16:03:34.342+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'load_csv_to_postgres', 'scheduled__2025-08-25T15:00:00+00:00', '--job-id', '550', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmp07gmqsv9']
+[2025-08-25T16:03:34.345+0000] {standard_task_runner.py:91} INFO - Job 550: Subtask load_csv_to_postgres
+[2025-08-25T16:03:34.379+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-25T16:03:34.435+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-25T15:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-25T16:03:34.624+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-25T15:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-25T15:00:00+00:00'
+[2025-08-25T16:03:34.626+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-25T16:03:34.687+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-25T16:03:34.890+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.159+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.217+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.256+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.309+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.357+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.431+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.459+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.482+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.502+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.518+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.569+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.610+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.632+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.684+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.705+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.735+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.761+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.804+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.833+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.853+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.880+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.905+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.926+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:35.980+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.023+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.066+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.089+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.136+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.192+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.243+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.295+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.334+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.383+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.436+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.466+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.490+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу shipments
+[2025-08-25T16:03:36.504+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-25T16:03:36.663+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.746+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.773+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.795+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.818+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.849+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.868+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.892+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.937+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.961+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:36.988+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.036+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.074+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.119+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.157+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.186+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.230+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.258+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.283+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.309+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.334+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.411+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.475+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.524+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.562+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-25T16:03:37.699+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.767+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.802+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.818+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.834+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.850+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.867+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.890+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.906+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.924+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.940+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.955+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.970+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:37.986+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.001+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.038+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.113+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.165+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.207+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.254+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.287+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.325+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.369+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.411+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.452+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.494+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.528+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.577+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.622+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.662+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.697+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.725+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.759+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.779+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.823+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.866+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.909+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу orders
+[2025-08-25T16:03:38.937+0000] {logging_mixin.py:188} INFO - ✅ Загружено 212 новых строк в таблицу orders
+[2025-08-25T16:03:38.983+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-25T16:03:39.020+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-25T16:03:39.055+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-25T16:03:39.094+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-25T16:03:39.116+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-25T16:03:39.170+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.195+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.215+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.234+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.254+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.282+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.301+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.319+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.338+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.357+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.395+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.415+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.441+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.462+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.505+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.540+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.573+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.594+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.613+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.645+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.664+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.684+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.711+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.730+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.749+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.770+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.789+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.809+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.827+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.844+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.862+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.880+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.898+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.916+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.934+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.952+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:39.971+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.001+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.024+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.047+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.070+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.092+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.114+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.136+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.159+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.182+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.208+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.231+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.258+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.282+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу order_items
+[2025-08-25T16:03:40.292+0000] {logging_mixin.py:188} INFO - ✅ Загружено 27 новых строк в таблицу order_items
+[2025-08-25T16:03:40.345+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-25T16:03:40.430+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-25T16:03:40.430+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/generate_fake_shop_csv.py", line 154, in load_csv_to_postgres
+    chunk.to_sql(table_name, engine, if_exists="append", index=False, dtype=dtype_mapping)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+[SQL: INSERT INTO payment (payment_id, order_id, payment_method, amount, transaction_status, payment_date) VALUES (%(payment_id)s, %(order_id)s, %(payment_method)s, %(amount)s, %(transaction_status)s, %(payment_date)s)]
+[parameters: ({'payment_id': 1, 'order_id': 1, 'payment_method': 'Credit Card', 'amount': 232.15, 'transaction_status': 'Completed', 'payment_date': 783.2661509750569}, {'payment_id': 2, 'order_id': 2, 'payment_method': 'Credit Card', 'amount': 454.44, 'transaction_status': 'Completed', 'payment_date': 583.1757971762166}, {'payment_id': 3, 'order_id': 3, 'payment_method': 'Credit Card', 'amount': 26.14, 'transaction_status': 'Completed', 'payment_date': 146.10877631516902}, {'payment_id': 4, 'order_id': 4, 'payment_method': 'Credit Card', 'amount': 985.7, 'transaction_status': 'Completed', 'payment_date': 272.6625885878419}, {'payment_id': 5, 'order_id': 5, 'payment_method': 'Credit Card', 'amount': 733.32, 'transaction_status': 'Completed', 'payment_date': 906.9884225306255}, {'payment_id': 6, 'order_id': 6, 'payment_method': 'Credit Card', 'amount': 629.36, 'transaction_status': 'Completed', 'payment_date': 968.2403914532979}, {'payment_id': 7, 'order_id': 7, 'payment_method': 'Credit Card', 'amount': 461.51, 'transaction_status': 'Completed', 'payment_date': 247.7984113319129}, {'payment_id': 8, 'order_id': 8, 'payment_method': 'Credit Card', 'amount': 464.73, 'transaction_status': 'Completed', 'payment_date': 506.5239063894484}  ... displaying 10 of 400 total bound parameter sets ...  {'payment_id': 399, 'order_id': 399, 'payment_method': 'Credit Card', 'amount': 984.3, 'transaction_status': 'Completed', 'payment_date': 250.28712717827358}, {'payment_id': 400, 'order_id': 400, 'payment_method': 'Credit Card', 'amount': 230.6, 'transaction_status': 'Completed', 'payment_date': 373.4742134233831})]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-08-25T16:03:40.451+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=daily_generate_orders, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-25T15:00:00+00:00, execution_date=20250825T150000, start_date=20250825T160334, end_date=20250825T160340
+[2025-08-25T16:03:40.468+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 550 for task load_csv_to_postgres ((psycopg2.errors.UndefinedColumn) column "payment_date" of relation "payment" does not exist
+LINE 1: ...r_id, payment_method, amount, transaction_status, payment_da...
+                                                             ^
+
+[SQL: INSERT INTO payment (payment_id, order_id, payment_method, amount, transaction_status, payment_date) VALUES (%(payment_id)s, %(order_id)s, %(payment_method)s, %(amount)s, %(transaction_status)s, %(payment_date)s)]
+[parameters: ({'payment_id': 1, 'order_id': 1, 'payment_method': 'Credit Card', 'amount': 232.15, 'transaction_status': 'Completed', 'payment_date': 783.2661509750569}, {'payment_id': 2, 'order_id': 2, 'payment_method': 'Credit Card', 'amount': 454.44, 'transaction_status': 'Completed', 'payment_date': 583.1757971762166}, {'payment_id': 3, 'order_id': 3, 'payment_method': 'Credit Card', 'amount': 26.14, 'transaction_status': 'Completed', 'payment_date': 146.10877631516902}, {'payment_id': 4, 'order_id': 4, 'payment_method': 'Credit Card', 'amount': 985.7, 'transaction_status': 'Completed', 'payment_date': 272.6625885878419}, {'payment_id': 5, 'order_id': 5, 'payment_method': 'Credit Card', 'amount': 733.32, 'transaction_status': 'Completed', 'payment_date': 906.9884225306255}, {'payment_id': 6, 'order_id': 6, 'payment_method': 'Credit Card', 'amount': 629.36, 'transaction_status': 'Completed', 'payment_date': 968.2403914532979}, {'payment_id': 7, 'order_id': 7, 'payment_method': 'Credit Card', 'amount': 461.51, 'transaction_status': 'Completed', 'payment_date': 247.7984113319129}, {'payment_id': 8, 'order_id': 8, 'payment_method': 'Credit Card', 'amount': 464.73, 'transaction_status': 'Completed', 'payment_date': 506.5239063894484}  ... displaying 10 of 400 total bound parameter sets ...  {'payment_id': 399, 'order_id': 399, 'payment_method': 'Credit Card', 'amount': 984.3, 'transaction_status': 'Completed', 'payment_date': 250.28712717827358}, {'payment_id': 400, 'order_id': 400, 'payment_method': 'Credit Card', 'amount': 230.6, 'transaction_status': 'Completed', 'payment_date': 373.4742134233831})]
+(Background on this error at: https://sqlalche.me/e/14/f405); 885)
+[2025-08-25T16:03:40.505+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-25T16:03:40.550+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-25T16:03:40.552+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

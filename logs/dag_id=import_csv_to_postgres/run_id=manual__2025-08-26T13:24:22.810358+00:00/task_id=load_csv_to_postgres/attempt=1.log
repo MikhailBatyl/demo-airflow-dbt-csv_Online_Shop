@@ -1,0 +1,80 @@
+[2025-08-26T13:24:23.931+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-26T13:24:23.957+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres manual__2025-08-26T13:24:22.810358+00:00 [queued]>
+[2025-08-26T13:24:23.965+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres manual__2025-08-26T13:24:22.810358+00:00 [queued]>
+[2025-08-26T13:24:23.965+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-26T13:24:23.981+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-26 13:24:22.810358+00:00
+[2025-08-26T13:24:23.992+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1136) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-26T13:24:23.993+0000] {standard_task_runner.py:64} INFO - Started process 1138 to run task
+[2025-08-26T13:24:23.997+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'manual__2025-08-26T13:24:22.810358+00:00', '--job-id', '612', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpnhkbhg9s']
+[2025-08-26T13:24:23.999+0000] {standard_task_runner.py:91} INFO - Job 612: Subtask load_csv_to_postgres
+[2025-08-26T13:24:24.020+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-26T13:24:24.060+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres manual__2025-08-26T13:24:22.810358+00:00 [running]> on host b5ea13053d47
+[2025-08-26T13:24:24.190+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-26T13:24:22.810358+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-08-26T13:24:22.810358+00:00'
+[2025-08-26T13:24:24.192+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-26T13:24:24.221+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-26T13:24:25.200+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл shipments.csv в таблицу shipments
+[2025-08-26T13:24:26.397+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл customers.csv в таблицу customers
+[2025-08-26T13:24:26.477+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-26T13:24:26.479+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "orders" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/csv_to_postgres_dag.py", line 57, in load_csv_to_postgres
+    sync_table_schema(engine, table_name, df)
+  File "/opt/airflow/dags/csv_to_postgres_dag.py", line 41, in sync_table_schema
+    conn.execute(f'ALTER TABLE "{table_name}" ADD COLUMN "{col}" {col_type}')
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1370, in execute
+    return self._exec_driver_sql(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1674, in _exec_driver_sql
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "orders" does not exist
+
+[SQL: ALTER TABLE "orders" ADD COLUMN "order_id" INTEGER]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-08-26T13:24:26.542+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=manual__2025-08-26T13:24:22.810358+00:00, execution_date=20250826T132422, start_date=20250826T132423, end_date=20250826T132426
+[2025-08-26T13:24:26.615+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 612 for task load_csv_to_postgres ((psycopg2.errors.UndefinedTable) relation "orders" does not exist
+
+[SQL: ALTER TABLE "orders" ADD COLUMN "order_id" INTEGER]
+(Background on this error at: https://sqlalche.me/e/14/f405); 1138)
+[2025-08-26T13:24:26.671+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-26T13:24:26.742+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-26T13:24:26.749+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

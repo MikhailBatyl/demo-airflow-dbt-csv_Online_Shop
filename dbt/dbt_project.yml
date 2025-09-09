@@ -1,0 +1,21 @@
+name: 'my_project'
+version: '1.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: 
+  - "models"   # <-- заменили source-paths на model-paths
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  my_project:          # соответствует name
+    sources:           # модели в models/sources
+      +materialized: view
+    staging:           # модели в models/staging
+      +materialized: view
+    marts:             # модели в models/marts
+      +materialized: table

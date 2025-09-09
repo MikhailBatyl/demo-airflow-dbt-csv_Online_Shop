@@ -1,0 +1,56 @@
+[2025-09-09T11:00:01.001+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-09-09T11:00:01.064+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dbt_run_models.run_dbt_models scheduled__2025-09-09T10:00:00+00:00 [queued]>
+[2025-09-09T11:00:01.091+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dbt_run_models.run_dbt_models scheduled__2025-09-09T10:00:00+00:00 [queued]>
+[2025-09-09T11:00:01.092+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-09-09T11:00:01.140+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): run_dbt_models> on 2025-09-09 10:00:00+00:00
+[2025-09-09T11:00:01.150+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=2852) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-09-09T11:00:01.152+0000] {standard_task_runner.py:64} INFO - Started process 2853 to run task
+[2025-09-09T11:00:01.158+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'dbt_run_models', 'run_dbt_models', 'scheduled__2025-09-09T10:00:00+00:00', '--job-id', '1278', '--raw', '--subdir', 'DAGS_FOLDER/dbt_dag.py', '--cfg-path', '/tmp/tmpzyubeurg']
+[2025-09-09T11:00:01.160+0000] {standard_task_runner.py:91} INFO - Job 1278: Subtask run_dbt_models
+[2025-09-09T11:00:01.190+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-09-09T11:00:01.293+0000] {task_command.py:426} INFO - Running <TaskInstance: dbt_run_models.run_dbt_models scheduled__2025-09-09T10:00:00+00:00 [running]> on host b5ea13053d47
+[2025-09-09T11:00:01.513+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dbt_run_models' AIRFLOW_CTX_TASK_ID='run_dbt_models' AIRFLOW_CTX_EXECUTION_DATE='2025-09-09T10:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-09-09T10:00:00+00:00'
+[2025-09-09T11:00:01.514+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-09-09T11:00:01.529+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-09-09T11:00:01.530+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n        cd /usr/app &&         dbt run --profiles-dir /usr/app\n        ']
+[2025-09-09T11:00:01.553+0000] {subprocess.py:86} INFO - Output:
+[2025-09-09T11:00:06.695+0000] {subprocess.py:93} INFO - [0m11:00:06  Running with dbt=1.7.9
+[2025-09-09T11:00:07.223+0000] {subprocess.py:93} INFO - [0m11:00:07  Registered adapter: postgres=1.7.9
+[2025-09-09T11:00:07.285+0000] {subprocess.py:93} INFO - [0m11:00:07  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+[2025-09-09T11:00:07.286+0000] {subprocess.py:93} INFO - There are 1 unused configuration paths:
+[2025-09-09T11:00:07.287+0000] {subprocess.py:93} INFO - - models.my_project.sources
+[2025-09-09T11:00:07.318+0000] {subprocess.py:93} INFO - [0m11:00:07  Found 8 models, 7 sources, 0 exposures, 0 metrics, 401 macros, 0 groups, 0 semantic models
+[2025-09-09T11:00:07.323+0000] {subprocess.py:93} INFO - [0m11:00:07
+[2025-09-09T11:00:07.609+0000] {subprocess.py:93} INFO - [0m11:00:07  Concurrency: 4 threads (target='dev')
+[2025-09-09T11:00:07.611+0000] {subprocess.py:93} INFO - [0m11:00:07
+[2025-09-09T11:00:07.648+0000] {subprocess.py:93} INFO - [0m11:00:07  1 of 8 START sql view model analytics.stg_AOV .................................. [RUN]
+[2025-09-09T11:00:07.655+0000] {subprocess.py:93} INFO - [0m11:00:07  2 of 8 START sql view model analytics.stg_order_count_year ..................... [RUN]
+[2025-09-09T11:00:07.658+0000] {subprocess.py:93} INFO - [0m11:00:07  3 of 8 START sql view model analytics.stg_order_details ........................ [RUN]
+[2025-09-09T11:00:07.659+0000] {subprocess.py:93} INFO - [0m11:00:07  4 of 8 START sql view model analytics.stg_orders ............................... [RUN]
+[2025-09-09T11:00:08.397+0000] {subprocess.py:93} INFO - [0m11:00:08  3 of 8 OK created sql view model analytics.stg_order_details ................... [[32mCREATE VIEW[0m in 0.72s]
+[2025-09-09T11:00:08.417+0000] {subprocess.py:93} INFO - [0m11:00:08  2 of 8 OK created sql view model analytics.stg_order_count_year ................ [[32mCREATE VIEW[0m in 0.73s]
+[2025-09-09T11:00:08.424+0000] {subprocess.py:93} INFO - [0m11:00:08  4 of 8 OK created sql view model analytics.stg_orders .......................... [[32mCREATE VIEW[0m in 0.73s]
+[2025-09-09T11:00:08.427+0000] {subprocess.py:93} INFO - [0m11:00:08  1 of 8 OK created sql view model analytics.stg_AOV ............................. [[32mCREATE VIEW[0m in 0.76s]
+[2025-09-09T11:00:08.450+0000] {subprocess.py:93} INFO - [0m11:00:08  5 of 8 START sql table model analytics.order_count_year ........................ [RUN]
+[2025-09-09T11:00:08.455+0000] {subprocess.py:93} INFO - [0m11:00:08  6 of 8 START sql table model analytics.order_count_year+month_diff ............. [RUN]
+[2025-09-09T11:00:08.457+0000] {subprocess.py:93} INFO - [0m11:00:08  7 of 8 START sql table model analytics.orders_summary .......................... [RUN]
+[2025-09-09T11:00:08.460+0000] {subprocess.py:93} INFO - [0m11:00:08  8 of 8 START sql table model analytics.AOV_chek ................................ [RUN]
+[2025-09-09T11:00:09.066+0000] {subprocess.py:93} INFO - [0m11:00:09  5 of 8 OK created sql table model analytics.order_count_year ................... [[32mSELECT 4[0m in 0.59s]
+[2025-09-09T11:00:09.068+0000] {subprocess.py:93} INFO - [0m11:00:09  8 of 8 OK created sql table model analytics.AOV_chek ........................... [[32mSELECT 50[0m in 0.58s]
+[2025-09-09T11:00:09.071+0000] {subprocess.py:93} INFO - [0m11:00:09  6 of 8 OK created sql table model analytics.order_count_year+month_diff ........ [[32mSELECT 28[0m in 0.60s]
+[2025-09-09T11:00:09.073+0000] {subprocess.py:93} INFO - [0m11:00:09  7 of 8 OK created sql table model analytics.orders_summary ..................... [[32mSELECT 10000[0m in 0.60s]
+[2025-09-09T11:00:09.095+0000] {subprocess.py:93} INFO - [0m11:00:09
+[2025-09-09T11:00:09.096+0000] {subprocess.py:93} INFO - [0m11:00:09  Finished running 4 view models, 4 table models in 0 hours 0 minutes and 1.77 seconds (1.77s).
+[2025-09-09T11:00:09.114+0000] {subprocess.py:93} INFO - [0m11:00:09
+[2025-09-09T11:00:09.116+0000] {subprocess.py:93} INFO - [0m11:00:09  [32mCompleted successfully[0m
+[2025-09-09T11:00:09.116+0000] {subprocess.py:93} INFO - [0m11:00:09
+[2025-09-09T11:00:09.118+0000] {subprocess.py:93} INFO - [0m11:00:09  Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[2025-09-09T11:00:19.692+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-09-09T11:00:19.693+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-09-09T11:00:19.753+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=dbt_run_models, task_id=run_dbt_models, run_id=scheduled__2025-09-09T10:00:00+00:00, execution_date=20250909T100000, start_date=20250909T110001, end_date=20250909T110019
+[2025-09-09T11:00:19.799+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-09-09T11:00:19.821+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

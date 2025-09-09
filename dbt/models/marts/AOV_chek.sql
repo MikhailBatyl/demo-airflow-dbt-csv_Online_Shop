@@ -1,0 +1,8 @@
+select 
+    aov.product_name,	
+	aov.category,
+	round(avg(aov.price)::numeric, 2) avg_price,
+	max(aov.price) max_price,
+	min(aov.price) min_price
+from {{ ref('stg_AOV') }} as aov
+group by aov.product_name, aov.category

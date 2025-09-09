@@ -1,0 +1,79 @@
+[2025-08-26T06:00:07.054+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-26T06:00:07.078+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-26T05:00:00+00:00 [queued]>
+[2025-08-26T06:00:07.086+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-26T05:00:00+00:00 [queued]>
+[2025-08-26T06:00:07.086+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-26T06:00:07.103+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-26 05:00:00+00:00
+[2025-08-26T06:00:07.116+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1002) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-26T06:00:07.117+0000] {standard_task_runner.py:64} INFO - Started process 1004 to run task
+[2025-08-26T06:00:07.144+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'daily_generate_orders', 'load_csv_to_postgres', 'scheduled__2025-08-26T05:00:00+00:00', '--job-id', '580', '--raw', '--subdir', 'DAGS_FOLDER/generate_fake_shop_csv.py', '--cfg-path', '/tmp/tmpne7symhf']
+[2025-08-26T06:00:07.148+0000] {standard_task_runner.py:91} INFO - Job 580: Subtask load_csv_to_postgres
+[2025-08-26T06:00:07.201+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-26T06:00:07.274+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_generate_orders.load_csv_to_postgres scheduled__2025-08-26T05:00:00+00:00 [running]> on host b5ea13053d47
+[2025-08-26T06:00:07.459+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='daily_generate_orders' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-26T05:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-26T05:00:00+00:00'
+[2025-08-26T06:00:07.460+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-26T06:00:07.493+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-26T06:00:08.938+0000] {logging_mixin.py:188} INFO - ✅ Загружено 15000 строк в таблицу shipments
+[2025-08-26T06:00:08.948+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:08.963+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:08.996+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:09.020+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:09.037+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:09.058+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:09.069+0000] {logging_mixin.py:188} INFO - ✅ Загружено 200 новых строк в таблицу shipments
+[2025-08-26T06:00:09.902+0000] {logging_mixin.py:188} INFO - ✅ Загружено 10000 строк в таблицу customers
+[2025-08-26T06:00:09.970+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:09.995+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:10.023+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:10.047+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:10.061+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:10.075+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу customers
+[2025-08-26T06:00:11.356+0000] {logging_mixin.py:188} INFO - ✅ Загружено 15020 строк в таблицу orders
+[2025-08-26T06:00:11.395+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу orders
+[2025-08-26T06:00:11.414+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу orders
+[2025-08-26T06:00:11.440+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу orders
+[2025-08-26T06:00:11.457+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу orders
+[2025-08-26T06:00:11.480+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу orders
+[2025-08-26T06:00:11.698+0000] {logging_mixin.py:188} INFO - ✅ Загружено 2000 строк в таблицу products
+[2025-08-26T06:00:11.730+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-26T06:00:11.753+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-26T06:00:11.787+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-26T06:00:11.805+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-26T06:00:11.848+0000] {logging_mixin.py:188} INFO - ✅ Загружено 400 новых строк в таблицу products
+[2025-08-26T06:00:13.492+0000] {logging_mixin.py:188} INFO - ✅ Загружено 20045 строк в таблицу order_items
+[2025-08-26T06:00:13.499+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.505+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.510+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.525+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.532+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.541+0000] {logging_mixin.py:188} INFO - ✅ Загружено 45 новых строк в таблицу order_items
+[2025-08-26T06:00:13.556+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 строк в таблицу suppliers
+[2025-08-26T06:00:13.566+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:13.575+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:13.583+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:13.591+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:13.599+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:13.606+0000] {logging_mixin.py:188} INFO - ✅ Загружено 100 новых строк в таблицу suppliers
+[2025-08-26T06:00:14.992+0000] {logging_mixin.py:188} INFO - ✅ Загружено 15020 строк в таблицу payment
+[2025-08-26T06:00:15.003+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.040+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.076+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.105+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.134+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.170+0000] {logging_mixin.py:188} INFO - ✅ Загружено 220 новых строк в таблицу payment
+[2025-08-26T06:00:15.312+0000] {logging_mixin.py:188} INFO - ✅ Загружено 1106 строк в таблицу reviews
+[2025-08-26T06:00:15.333+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.353+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.376+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.399+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.414+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.428+0000] {logging_mixin.py:188} INFO - ✅ Загружено 306 новых строк в таблицу reviews
+[2025-08-26T06:00:15.429+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-08-26T06:00:15.429+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-26T06:00:15.441+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_generate_orders, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-26T05:00:00+00:00, execution_date=20250826T050000, start_date=20250826T060007, end_date=20250826T060015
+[2025-08-26T06:00:15.495+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-08-26T06:00:15.534+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-26T06:00:15.538+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

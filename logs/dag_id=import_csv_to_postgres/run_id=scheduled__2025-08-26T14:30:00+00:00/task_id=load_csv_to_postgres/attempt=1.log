@@ -1,0 +1,122 @@
+[2025-08-26T15:00:01.898+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-08-26T15:00:01.921+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-26T14:30:00+00:00 [queued]>
+[2025-08-26T15:00:01.929+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-26T14:30:00+00:00 [queued]>
+[2025-08-26T15:00:01.930+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-08-26T15:00:01.948+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_csv_to_postgres> on 2025-08-26 14:30:00+00:00
+[2025-08-26T15:00:01.958+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=1161) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-08-26T15:00:01.959+0000] {standard_task_runner.py:64} INFO - Started process 1166 to run task
+[2025-08-26T15:00:01.964+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'import_csv_to_postgres', 'load_csv_to_postgres', 'scheduled__2025-08-26T14:30:00+00:00', '--job-id', '621', '--raw', '--subdir', 'DAGS_FOLDER/csv_to_postgres_dag.py', '--cfg-path', '/tmp/tmpvmd6byis']
+[2025-08-26T15:00:01.966+0000] {standard_task_runner.py:91} INFO - Job 621: Subtask load_csv_to_postgres
+[2025-08-26T15:00:01.997+0000] {warnings.py:112} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/settings.py:195: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2025-08-26T15:00:02.101+0000] {task_command.py:426} INFO - Running <TaskInstance: import_csv_to_postgres.load_csv_to_postgres scheduled__2025-08-26T14:30:00+00:00 [running]> on host b5ea13053d47
+[2025-08-26T15:00:02.325+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='import_csv_to_postgres' AIRFLOW_CTX_TASK_ID='load_csv_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2025-08-26T14:30:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-08-26T14:30:00+00:00'
+[2025-08-26T15:00:02.329+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-08-26T15:00:02.354+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2025-08-26T15:00:02.366+0000] {logging_mixin.py:188} INFO - 🗑 Таблица order_items очищена
+[2025-08-26T15:00:02.403+0000] {logging_mixin.py:188} INFO - 🗑 Таблица orders очищена
+[2025-08-26T15:00:02.414+0000] {logging_mixin.py:188} INFO - 🗑 Таблица shipments очищена
+[2025-08-26T15:00:02.429+0000] {logging_mixin.py:188} INFO - 🗑 Таблица customers очищена
+[2025-08-26T15:00:02.441+0000] {logging_mixin.py:188} INFO - 🗑 Таблица products очищена
+[2025-08-26T15:00:02.727+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл customers.csv в таблицу customers
+[2025-08-26T15:00:02.785+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл products.csv в таблицу products
+[2025-08-26T15:00:03.183+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл shipments.csv в таблицу shipments
+[2025-08-26T15:00:03.761+0000] {logging_mixin.py:188} INFO - ✅ Загружен файл orders.csv в таблицу orders
+[2025-08-26T15:00:04.815+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-08-26T15:00:04.816+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "order_items_pkey"
+DETAIL:  Key (order_item_id)=(20001) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/csv_to_postgres_dag.py", line 74, in load_csv_to_postgres
+    df.to_sql(table_name, engine, if_exists="append", index=False, dtype=dtype_mapping)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "order_items_pkey"
+DETAIL:  Key (order_item_id)=(20001) already exists.
+
+[SQL: INSERT INTO order_items (order_item_id, order_id, product_id, quantity, price_at_purchase, unit_price) VALUES (%(order_item_id)s, %(order_id)s, %(product_id)s, %(quantity)s, %(price_at_purchase)s, %(unit_price)s)]
+[parameters: ({'order_item_id': 1, 'order_id': 6550, 'product_id': 1032, 'quantity': 1, 'price_at_purchase': 342.92, 'unit_price': None}, {'order_item_id': 2, 'order_id': 7324, 'product_id': 1695, 'quantity': 1, 'price_at_purchase': 955.86, 'unit_price': None}, {'order_item_id': 3, 'order_id': 11952, 'product_id': 1962, 'quantity': 1, 'price_at_purchase': 909.45, 'unit_price': None}, {'order_item_id': 4, 'order_id': 8938, 'product_id': 1958, 'quantity': 1, 'price_at_purchase': 984.91, 'unit_price': None}, {'order_item_id': 5, 'order_id': 4238, 'product_id': 1880, 'quantity': 1, 'price_at_purchase': 649.18, 'unit_price': None}, {'order_item_id': 6, 'order_id': 14235, 'product_id': 672, 'quantity': 1, 'price_at_purchase': 695.76, 'unit_price': None}, {'order_item_id': 7, 'order_id': 10944, 'product_id': 1, 'quantity': 1, 'price_at_purchase': 54.83, 'unit_price': None}, {'order_item_id': 8, 'order_id': 11075, 'product_id': 827, 'quantity': 1, 'price_at_purchase': 320.24, 'unit_price': None}  ... displaying 10 of 20061 total bound parameter sets ...  {'order_item_id': 20026, 'order_id': 15026, 'product_id': 1200, 'quantity': 5, 'price_at_purchase': None, 'unit_price': 33.02}, {'order_item_id': 20026, 'order_id': 15026, 'product_id': 8, 'quantity': 1, 'price_at_purchase': None, 'unit_price': 378.12})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2025-08-26T15:00:04.831+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=import_csv_to_postgres, task_id=load_csv_to_postgres, run_id=scheduled__2025-08-26T14:30:00+00:00, execution_date=20250826T143000, start_date=20250826T150001, end_date=20250826T150004
+[2025-08-26T15:00:04.863+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 621 for task load_csv_to_postgres ((psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "order_items_pkey"
+DETAIL:  Key (order_item_id)=(20001) already exists.
+
+[SQL: INSERT INTO order_items (order_item_id, order_id, product_id, quantity, price_at_purchase, unit_price) VALUES (%(order_item_id)s, %(order_id)s, %(product_id)s, %(quantity)s, %(price_at_purchase)s, %(unit_price)s)]
+[parameters: ({'order_item_id': 1, 'order_id': 6550, 'product_id': 1032, 'quantity': 1, 'price_at_purchase': 342.92, 'unit_price': None}, {'order_item_id': 2, 'order_id': 7324, 'product_id': 1695, 'quantity': 1, 'price_at_purchase': 955.86, 'unit_price': None}, {'order_item_id': 3, 'order_id': 11952, 'product_id': 1962, 'quantity': 1, 'price_at_purchase': 909.45, 'unit_price': None}, {'order_item_id': 4, 'order_id': 8938, 'product_id': 1958, 'quantity': 1, 'price_at_purchase': 984.91, 'unit_price': None}, {'order_item_id': 5, 'order_id': 4238, 'product_id': 1880, 'quantity': 1, 'price_at_purchase': 649.18, 'unit_price': None}, {'order_item_id': 6, 'order_id': 14235, 'product_id': 672, 'quantity': 1, 'price_at_purchase': 695.76, 'unit_price': None}, {'order_item_id': 7, 'order_id': 10944, 'product_id': 1, 'quantity': 1, 'price_at_purchase': 54.83, 'unit_price': None}, {'order_item_id': 8, 'order_id': 11075, 'product_id': 827, 'quantity': 1, 'price_at_purchase': 320.24, 'unit_price': None}  ... displaying 10 of 20061 total bound parameter sets ...  {'order_item_id': 20026, 'order_id': 15026, 'product_id': 1200, 'quantity': 5, 'price_at_purchase': None, 'unit_price': 33.02}, {'order_item_id': 20026, 'order_id': 15026, 'product_id': 8, 'quantity': 1, 'price_at_purchase': None, 'unit_price': 378.12})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 1166)
+[2025-08-26T15:00:04.911+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-08-26T15:00:04.950+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-08-26T15:00:04.957+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
