@@ -11,3 +11,4 @@ sources:
       - name: shipments
       - name: products
       - name: suppliers
+      - name: reviews
