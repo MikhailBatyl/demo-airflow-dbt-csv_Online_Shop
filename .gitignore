@@ -59,3 +59,7 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+*.dump
+*.bak
+*.sql
