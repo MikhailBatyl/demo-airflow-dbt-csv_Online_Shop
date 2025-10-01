@@ -2,7 +2,7 @@
 
 Публичная ссылка для доступа:
 
-**http://localhost:3000/public/dashboard/39150c6a-d016-44ba-925e-5b1489dccf46
+**http://185.68.21.193:3000/public/dashboard/9264be8d-6b76-4f0e-a60c-ac36e620892e
 
 
 
