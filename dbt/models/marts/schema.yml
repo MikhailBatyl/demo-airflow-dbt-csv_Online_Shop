@@ -1,0 +1,307 @@
+version: 2
+
+# =============================================================================
+# Docs blocks для автогенерации документации (dbt docs generate)
+# =============================================================================
+
+docs:
+  - doc_id: fct_orders_summary
+    description: |
+      ## Сводка заказов по клиентам
+      Агрегирует количество заказов и общую выручку по каждому клиенту.
+      **Использование:** расчёт LTV, сегментация, топ клиентов.
+
+  - doc_id: fct_order_count_year
+    description: |
+      ## Количество заказов по годам
+      Простая агрегация: год → количество заказов.
+      **Метрика:** Orders (блок A — Продажи и конверсия).
+
+  - doc_id: fct_order_count_month_diff
+    description: |
+      ## Динамика заказов по месяцам
+      Количество заказов по месяцам + отклонение от максимума в году.
+      **Колонки:** year, month, count_order, max_in_year, diff_from_max.
+
+  - doc_id: fct_revenue_by_month
+    description: |
+      ## Выручка по месяцам
+      Сумма оплаченных заказов (transaction_status='Completed') по году и месяцу.
+      **Формула:** Revenue = SUM(amount) по оплаченным заказам.
+
+  - doc_id: fct_revenue_year_summary
+    description: |
+      ## Сводка выручки по годам
+      Годовая агрегация: revenue, count orders, max_amount.
+      **Метрики:** выручка, количество заказов, максимальный платёж.
+
+  - doc_id: fct_revenue_diff_time
+    description: |
+      ## Выручка с период-over-период сравнением
+      LAG-функции: prev_revenue, diff_absolute, diff_percent.
+      **Использование:** анализ трендов, MoM/YoY изменения.
+
+  - doc_id: fct_revenue_by_category
+    description: |
+      ## Выручка по категориям товаров
+      Разбивка выручки по year, month, category.
+      **Использование:** топ категорий, динамика по категориям.
+
+  - doc_id: fct_revenue_by_category_monthly
+    description: |
+      ## Выручка по категориям (ежемесячно)
+      Revenue = SUM(quantity × price_at_purchase) по категориям и месяцам.
+      **Отличие от fct_revenue_by_category:** использует price_at_purchase.
+
+  - doc_id: fct_items_per_order
+    description: |
+      ## Товаров на заказ (Items per Order)
+      **Формула:** IPO = AVG(SUM(quantity)) по заказам.
+      **Метрика:** среднее количество товаров в одном заказе.
+
+  - doc_id: fct_items_per_order_monthly
+    description: |
+      ## Товаров на заказ по месяцам
+      Динамика IPO по месяцам.
+      **Визуализация:** линейный график.
+
+  - doc_id: fct_items_per_order_by_category
+    description: |
+      ## Товаров на заказ по категориям
+      IPO с разбивкой по категориям товаров.
+      **Использование:** сравнение категорий по «корзине».
+
+  - doc_id: fct_aov_by_category
+    description: |
+      ## Средний чек по категориям (AOV)
+      **Формула:** AOV = SUM(price × quantity) / COUNT(DISTINCT order_id).
+      **Метрика:** Average Order Value по категориям.
+
+  - doc_id: fct_aov_by_product
+    description: |
+      ## Средний чек по продуктам
+      AOV с группировкой по product_name.
+      **Использование:** топ продуктов по среднему чеку.
+
+  - doc_id: fct_product_price_stats
+    description: |
+      ## Статистика цен по продуктам
+      AVG, MAX, MIN цены по product_name и category.
+      **Источник:** stg_products (текущие цены).
+
+  - doc_id: fct_avg_aov_check
+    description: |
+      ## Детализация заказов для проверки AOV
+      Сырые данные: order_id, order_date, total_price, amount, quantity, price_at_purchase.
+      **Использование:** валидация расчётов, отладка.
+
+  - doc_id: fct_aov_revenue_summary
+    description: |
+      ## Общий средний чек
+      Одна метрика: order_value_avg по всем оплаченным заказам.
+      **Формула:** AOV = SUM(revenue) / COUNT(orders).
+
+  - doc_id: fct_customer_types
+    description: |
+      ## Новые vs повторные покупатели
+      **Логика:** New = первый заказ в месяце, Returning = повторный.
+      **Колонки:** month, customer_type, customers_count, orders_count.
+      **Метрика:** блок B — Клиенты.
+
+  - doc_id: fct_orders_per_customer_segmented
+    description: |
+      ## Частота покупок по сегменту (OPC)
+      **Формула:** OPC = total_orders / total_customers по New/Returning.
+      **Метрика:** Orders per Customer по типу клиента.
+
+  - doc_id: fct_customer_retention
+    description: |
+      ## Когортный retention
+      Доля клиентов, вернувшихся в месяцы 0, 1, 2, … N после первой покупки.
+      **Колонки:** cohort_month, months_since_cohort, retained_customers, cohort_size, retention_rate (0–1).
+
+  - doc_id: fct_customer_retention_cohort
+    description: |
+      ## Когортный retention (в процентах)
+      Аналогично fct_customer_retention, но retention_rate в % (0–100).
+      **Визуализация:** heatmap по когортам.
+
+  - doc_id: fct_ltv_by_customer
+    description: |
+      ## LTV по когортам
+      Средний кумулятивный LTV клиентов по месяцам с первой покупки.
+      **Метрика:** Lifetime Value (приближённо).
+
+  - doc_id: fct_aov_orders_per_customer
+    description: |
+      ## Средняя частота покупок
+      **Формула:** OPC = COUNT(orders) / COUNT(customers) за всё время.
+      **Метрика:** Orders per Customer (общая).
+
+  - doc_id: fct_orders_per_customer_monthly
+    description: |
+      ## Частота покупок по месяцам
+      OPC с разбивкой по месяцам.
+      **Визуализация:** линейный график.
+
+  - doc_id: fct_avg_check_by_category
+    description: |
+      ## Средний чек по категориям (ежемесячно)
+      AVG check = SUM(quantity × price_at_purchase) / COUNT(orders) по category, month.
+      **Блок C:** Продукты и категории.
+
+  - doc_id: fct_items_per_sku
+    description: |
+      ## Товаров по SKU (топ-10 + Other)
+      Топ-10 продуктов по quantity, остальные — группа «Other».
+      **Метрика:** Items per SKU для управления запасами.
+
+  - doc_id: fct_revenue_by_payment_method
+    description: |
+      ## Выручка по способам оплаты
+      Revenue и revenue_share_percent по payment_method и month.
+      **Блок D:** Платежи. **Визуализация:** круговая диаграмма.
+
+  - doc_id: fct_payment_conversion_rate
+    description: |
+      ## Конверсия в оплату (PCR)
+      **Формула:** PCR = paid_orders / total_orders × 100%.
+      **Колонки:** month, total_orders, paid_orders, payment_conversion_rate.
+
+  - doc_id: fct_payment_stats
+    description: |
+      ## Статистика по способам оплаты
+      total_revenue, paid_orders, avg_check, revenue_share_percent по методу и месяцу.
+      **Использование:** сравнение платёжных каналов.
+
+  - doc_id: fct_aov_by_payment_method
+    description: |
+      ## Средний чек по способу оплаты
+      AOV с разбивкой по payment_method и month.
+      **Метрика:** блок D — Платежи.
+
+  - doc_id: fct_order_facts
+    description: |
+      ## Факт-таблица заказов (incremental)
+      Детализация заказов: order_id, order_date, customer_id, total_price, payment_method, items_count, revenue.
+      **Incremental:** при каждом запуске добавляются только новые заказы (по order_date).
+      **Использование:** быстрая загрузка новых данных, аналитика по заказам.
+
+  - doc_id: fct_reviews_sentiment
+    description: |
+      ## Отзывы и sentiment
+      **Метрики:** avg_rating, positive/negative reviews, positive_share, negative_share, pos_neg_ratio.
+      **Дополнительно:** weighted_rating, cumulative_reviews, delta_avg_rating.
+      **Блок E:** Отзывы.
+
+# =============================================================================
+# Models с ссылками на docs
+# =============================================================================
+
+models:
+  - name: fct_order_facts
+    description: "{{ doc('fct_order_facts') }}"
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: order_date
+        tests: [not_null]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: fct_orders_summary
+    description: "{{ doc('fct_orders_summary') }}"
+    columns:
+      - name: customer_id
+        tests: [not_null]
+      - name: orders_count
+        tests: [not_null]
+      - name: total_sales
+        tests: [not_null]
+
+  - name: fct_order_count_year
+    description: "{{ doc('fct_order_count_year') }}"
+
+  - name: fct_order_count_month_diff
+    description: "{{ doc('fct_order_count_month_diff') }}"
+
+  - name: fct_revenue_by_month
+    description: "{{ doc('fct_revenue_by_month') }}"
+
+  - name: fct_revenue_year_summary
+    description: "{{ doc('fct_revenue_year_summary') }}"
+
+  - name: fct_revenue_diff_time
+    description: "{{ doc('fct_revenue_diff_time') }}"
+
+  - name: fct_revenue_by_category
+    description: "{{ doc('fct_revenue_by_category') }}"
+
+  - name: fct_revenue_by_category_monthly
+    description: "{{ doc('fct_revenue_by_category_monthly') }}"
+
+  - name: fct_items_per_order
+    description: "{{ doc('fct_items_per_order') }}"
+
+  - name: fct_items_per_order_monthly
+    description: "{{ doc('fct_items_per_order_monthly') }}"
+
+  - name: fct_items_per_order_by_category
+    description: "{{ doc('fct_items_per_order_by_category') }}"
+
+  - name: fct_aov_by_category
+    description: "{{ doc('fct_aov_by_category') }}"
+
+  - name: fct_aov_by_product
+    description: "{{ doc('fct_aov_by_product') }}"
+
+  - name: fct_product_price_stats
+    description: "{{ doc('fct_product_price_stats') }}"
+
+  - name: fct_avg_aov_check
+    description: "{{ doc('fct_avg_aov_check') }}"
+
+  - name: fct_aov_revenue_summary
+    description: "{{ doc('fct_aov_revenue_summary') }}"
+
+  - name: fct_customer_types
+    description: "{{ doc('fct_customer_types') }}"
+
+  - name: fct_orders_per_customer_segmented
+    description: "{{ doc('fct_orders_per_customer_segmented') }}"
+
+  - name: fct_customer_retention
+    description: "{{ doc('fct_customer_retention') }}"
+
+  - name: fct_customer_retention_cohort
+    description: "{{ doc('fct_customer_retention_cohort') }}"
+
+  - name: fct_ltv_by_customer
+    description: "{{ doc('fct_ltv_by_customer') }}"
+
+  - name: fct_aov_orders_per_customer
+    description: "{{ doc('fct_aov_orders_per_customer') }}"
+
+  - name: fct_orders_per_customer_monthly
+    description: "{{ doc('fct_orders_per_customer_monthly') }}"
+
+  - name: fct_avg_check_by_category
+    description: "{{ doc('fct_avg_check_by_category') }}"
+
+  - name: fct_items_per_sku
+    description: "{{ doc('fct_items_per_sku') }}"
+
+  - name: fct_revenue_by_payment_method
+    description: "{{ doc('fct_revenue_by_payment_method') }}"
+
+  - name: fct_payment_conversion_rate
+    description: "{{ doc('fct_payment_conversion_rate') }}"
+
+  - name: fct_payment_stats
+    description: "{{ doc('fct_payment_stats') }}"
+
+  - name: fct_aov_by_payment_method
+    description: "{{ doc('fct_aov_by_payment_method') }}"
+
+  - name: fct_reviews_sentiment
+    description: "{{ doc('fct_reviews_sentiment') }}"

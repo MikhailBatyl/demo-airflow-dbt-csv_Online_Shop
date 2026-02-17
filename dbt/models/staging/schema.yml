@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging layer for orders"
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [not_null, relationships:
+            to: ref('stg_customers')
+            field: customer_id]
+      - name: order_date
+        tests: [not_null]
+
+  - name: stg_customers
+    description: "Staging layer for customers"
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+
+  - name: stg_order_items
+    description: "Staging layer for order line items"
+    columns:
+      - name: order_item_id
+        tests: [unique, not_null]
+      - name: order_id
+        tests: [not_null, relationships:
+            to: ref('stg_orders')
+            field: order_id]
+      - name: product_id
+        tests: [not_null, relationships:
+            to: ref('stg_products')
+            field: product_id]
+
+  - name: stg_order_details
+    description: "Staging layer for order items (alias)"
+    columns:
+      - name: order_item_id
+        tests: [unique, not_null]
+      - name: order_id
+        tests: [not_null]
+
+  - name: stg_payments
+    description: "Staging layer for payments"
+    columns:
+      - name: payment_id
+        tests: [unique, not_null]
+      - name: order_id
+        tests: [not_null, relationships:
+            to: ref('stg_orders')
+            field: order_id]
+
+  - name: stg_products
+    description: "Staging layer for products"
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+
+  - name: stg_reviews
+    description: "Staging layer for product reviews"
+    columns:
+      - name: review_id
+        tests: [unique, not_null]
+      - name: product_id
+        tests: [not_null]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: stg_order_count_year
+    description: "Staging layer for orders (used in analytics)"
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [not_null]

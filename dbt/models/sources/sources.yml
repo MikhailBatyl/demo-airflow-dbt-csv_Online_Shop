@@ -2,13 +2,45 @@ version: 2
 
 sources:
   - name: northwind
-    schema: public   
+    schema: public
+    description: "Raw tables from online shop (loaded from CSV)"
     tables:
       - name: orders
+        description: "Customer orders"
+        columns:
+          - name: order_id
+            description: "Unique order identifier"
+            tests: [unique, not_null]
+          - name: customer_id
+            tests: [not_null]
       - name: order_items
+        description: "Items in each order"
+        columns:
+          - name: order_item_id
+            tests: [unique, not_null]
+          - name: order_id
+            tests: [not_null]
+          - name: product_id
+            tests: [not_null]
       - name: customers
+        description: "Customer master data"
+        columns:
+          - name: customer_id
+            tests: [unique, not_null]
       - name: payment
+        description: "Payment transactions"
+        columns:
+          - name: payment_id
+            tests: [unique, not_null]
+          - name: order_id
+            tests: [not_null]
       - name: shipments
       - name: products
+        columns:
+          - name: product_id
+            tests: [unique, not_null]
       - name: suppliers
       - name: reviews
+        columns:
+          - name: review_id
+            tests: [unique, not_null]

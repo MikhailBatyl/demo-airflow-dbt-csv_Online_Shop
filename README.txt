@@ -13,10 +13,22 @@
 - Docker
 - Airflow 
 - Redis
-- PostgreSQL
+- PostgreSQL (northwind-db — бизнес-данные)
+- PostgreSQL (metabase-db — метаданные Metabase, см. docs/METABASE.md)
 - DBT 
 - Metabase 
 
+────────────────────────────────────────────────────────────
+Data Lineage (dbt docs)
+────────────────────────────────────────────────────────────
+Визуализация зависимостей моделей: sources → staging → marts.
+
+Генерация: DAG dbt_run_models выполняет `dbt docs generate` после run и test.
+Просмотр: `cd dbt && dbt docs serve` (локально) или через контейнер dbt.
+
+Подробнее: docs/DATA_LINEAGE.md
+
+────────────────────────────────────────────────────────────
 
 Публичная ссылка для доступа:
 
