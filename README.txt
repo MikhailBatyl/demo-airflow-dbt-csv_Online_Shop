@@ -11,12 +11,14 @@
 Настроить сервисы:
 
 - Docker
-- Airflow 
+- Airflow (Celery executor, Redis)
 - Redis
 - PostgreSQL (northwind-db — бизнес-данные)
 - PostgreSQL (metabase-db — метаданные Metabase, см. docs/METABASE.md)
 - DBT 
-- Metabase 
+- Metabase
+
+Опционально (docker-compose_extra.yml): ClickHouse, MinIO, Jupyter-PySpark 
 
 ────────────────────────────────────────────────────────────
 Data Lineage (dbt docs)
@@ -27,6 +29,31 @@ Data Lineage (dbt docs)
 Просмотр: `cd dbt && dbt docs serve` (локально) или через контейнер dbt.
 
 Подробнее: docs/DATA_LINEAGE.md
+
+────────────────────────────────────────────────────────────
+Метрики и семантический слой (dbt metrics.yml)
+────────────────────────────────────────────────────────────
+Файл dbt/models/marts/metrics.yml — семантические модели и метрики для:
+  - fct_order_facts: order_count, total_revenue, total_items, avg_order_value
+  - fct_orders_summary: orders_count, total_sales, customer_count
+Описания соответствуют SQL-запросам и CTE (WITH) в моделях. Поддержка dbt Semantic Layer / MetricFlow.
+
+────────────────────────────────────────────────────────────
+Дополнительный стек (docker-compose_extra.yml)
+────────────────────────────────────────────────────────────
+Опциональный набор сервисов для расширения стенда:
+  - ClickHouse — аналитический движок (OLAP)
+  - MinIO — локальное S3-хранилище
+  - Jupyter + PySpark — интерактивная аналитика
+Запуск: docker compose -f docker-compose.yml -f docker-compose_extra.yml up -d
+Подробнее: docs/ARCHITECTURE.md
+
+────────────────────────────────────────────────────────────
+Документация проекта
+────────────────────────────────────────────────────────────
+  - docs/ARCHITECTURE.md — архитектура, диаграммы, масштабирование
+  - docs/DATA_LINEAGE.md — Data Lineage (dbt docs)
+  - docs/METABASE.md — настройка Metabase
 
 ────────────────────────────────────────────────────────────
 

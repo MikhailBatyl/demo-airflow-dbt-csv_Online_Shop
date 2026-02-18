@@ -1,0 +1,130 @@
+version: 2
+
+semantic_models:
+  # ---------------------------------------------------------------------------
+  # fct_order_facts — факт-таблица заказов (incremental)
+  # ---------------------------------------------------------------------------
+  # CTE:
+  #   - orders_filtered: stg_orders с фильтром по order_date (incremental: только новые заказы)
+  #   - payment_one_per_order: один платёж на заказ (DISTINCT ON), приоритет Completed
+  #   - order_items_agg: агрегация по order_id — items_count, revenue
+  # ---------------------------------------------------------------------------
+  - name: fct_order_facts_semantic
+    description: |
+      ## Факт-таблица заказов (incremental)
+      Детализация заказов с объединением данных из stg_orders, stg_payments, stg_order_details.
+      **CTE:**
+      - orders_filtered: заказы из stg_orders, при incremental — только order_date >= max(order_date)
+      - payment_one_per_order: один платёж на заказ (DISTINCT ON order_id), приоритет Completed
+      - order_items_agg: sum(quantity) as items_count, sum(quantity * price_at_purchase) as revenue
+      **Колонки:** order_id, order_date, customer_id, total_price, payment_method, payment_amount, transaction_status, items_count, revenue
+    model: ref('fct_order_facts')
+    defaults:
+      agg_time_dimension: order_date
+
+    entities:
+      - name: order
+        type: primary
+        expr: order_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+
+    dimensions:
+      - name: order_date
+        type: time
+        expr: order_date
+        type_params:
+          time_granularity: day
+      - name: payment_method
+        type: categorical
+        expr: payment_method
+      - name: transaction_status
+        type: categorical
+        expr: transaction_status
+
+    measures:
+      - name: order_count
+        description: Количество заказов (COUNT по order_id)
+        expr: order_id
+        agg: count_distinct
+      - name: total_revenue
+        description: Выручка — сумма revenue (quantity × price_at_purchase по позициям)
+        expr: revenue
+        agg: sum
+      - name: total_items
+        description: Общее количество товаров в заказах (items_count)
+        expr: items_count
+        agg: sum
+      - name: avg_order_value
+        description: Средний чек заказа (total_price)
+        expr: total_price
+        agg: average
+
+  # ---------------------------------------------------------------------------
+  # fct_orders_summary — сводка заказов по клиентам
+  # ---------------------------------------------------------------------------
+  # SQL: JOIN stg_orders o + stg_order_details od ON order_id
+  #      GROUP BY customer_id
+  #      count(*) as orders_count, sum(quantity * price_at_purchase) as total_sales
+  # ---------------------------------------------------------------------------
+  - name: fct_orders_summary_semantic
+    description: |
+      ## Сводка заказов по клиентам
+      Агрегация по клиентам: количество заказов и общая выручка.
+      **SQL:** JOIN stg_orders o + stg_order_details od ON o.order_id = od.order_id, GROUP BY o.customer_id
+      **Метрики:** orders_count = count(*), total_sales = sum(quantity × price_at_purchase)
+      **Использование:** LTV, сегментация, топ клиентов
+    model: ref('fct_orders_summary')
+
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_id
+
+    measures:
+      - name: orders_count
+        description: Количество заказов на клиента (COUNT)
+        expr: orders_count
+        agg: sum
+      - name: total_sales
+        description: Общая выручка клиента (sum quantity × price_at_purchase)
+        expr: total_sales
+        agg: sum
+      - name: customer_count
+        description: Количество уникальных клиентов
+        expr: customer_id
+        agg: count_distinct
+
+# =============================================================================
+# Метрики (опционально — для Semantic Layer / MetricFlow)
+# =============================================================================
+
+metrics:
+  - name: order_count
+    type: simple
+    type_params:
+      measure: order_count
+    label: Количество заказов
+    description: Метрика из fct_order_facts — число уникальных заказов
+
+  - name: total_revenue
+    type: simple
+    type_params:
+      measure: total_revenue
+    label: Общая выручка
+    description: Метрика из fct_order_facts — сумма revenue по заказам
+
+  - name: total_sales_by_customer
+    type: simple
+    type_params:
+      measure: total_sales
+    label: Выручка по клиентам
+    description: Метрика из fct_orders_summary — total_sales = sum(quantity × price_at_purchase)
+
+  - name: orders_per_customer
+    type: simple
+    type_params:
+      measure: orders_count
+    label: Заказов на клиента
+    description: Метрика из fct_orders_summary — count заказов по customer_id

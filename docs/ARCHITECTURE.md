@@ -64,6 +64,8 @@ sequenceDiagram
 
 ## Инфраструктура (Docker)
 
+### Основной стек (docker-compose.yml)
+
 ```mermaid
 graph TB
     subgraph "Docker Network: airflow-net"
@@ -96,6 +98,41 @@ graph TB
     METABASE --> NORTHWIND
     METABASE --> METABASE_DB
 ```
+
+### Дополнительный стек (docker-compose_extra.yml)
+
+Файл `docker-compose_extra.yml` добавляет опциональные сервисы для расширения стенда:
+
+| Сервис | Назначение | Порты |
+|--------|------------|-------|
+| **ClickHouse** | Аналитический движок (OLAP), колоночное хранение | HTTP, Native |
+| **MinIO** | Локальное S3-совместимое хранилище | S3 API, Web-консоль |
+| **Jupyter-PySpark** | Интерактивная аналитика, Spark | Jupyter Lab |
+
+```mermaid
+graph TB
+    subgraph "docker-compose_extra.yml"
+        subgraph "Analytics"
+            CH[ClickHouse]
+        end
+        subgraph "Storage"
+            MINIO[MinIO]
+        end
+        subgraph "Notebooks"
+            JUPYTER[Jupyter-PySpark]
+        end
+    end
+
+    JUPYTER --> CH
+    JUPYTER --> MINIO
+```
+
+**Запуск с дополнительным стеком:**
+```bash
+docker compose -f docker-compose.yml -f docker-compose_extra.yml up -d
+```
+
+**Требования:** переменные в `.env` для ClickHouse, MinIO, Jupyter (см. примеры в docker-compose_extra.yml).
 
 ## Схема данных
 
@@ -164,6 +201,13 @@ flowchart TB
     STG_R --> FCT_REV_S
 ```
 
+## Файлы конфигурации Docker
+
+| Файл | Назначение |
+|------|------------|
+| `docker-compose.yml` | Основной стек: Airflow, PostgreSQL, Redis, DBT, Metabase |
+| `docker-compose_extra.yml` | Дополнительно: ClickHouse, MinIO, Jupyter-PySpark |
+
 ## Incremental-модель
 
 `fct_order_facts` — единственная incremental-модель:
@@ -171,6 +215,14 @@ flowchart TB
 - **Стратегия:** merge по `order_id`
 - **Фильтр:** при инкрементальном запуске обрабатываются только заказы с `order_date >= max(order_date)` в целевой таблице
 - **Использование:** ускорение загрузки при росте объёма данных
+
+## Семантический слой (metrics.yml)
+
+Файл `dbt/models/marts/metrics.yml` определяет семантические модели и метрики для:
+- **fct_order_facts:** order_count, total_revenue, total_items, avg_order_value
+- **fct_orders_summary:** orders_count, total_sales, customer_count
+
+Описания соответствуют SQL-запросам и CTE в моделях. Поддержка dbt Semantic Layer / MetricFlow.
 
 ## Связи сервисов
 
@@ -186,7 +238,24 @@ flowchart TB
 
 ## Рекомендации по масштабированию
 
-- **Рост данных:** увеличить число incremental-моделей, партиционирование по дате
-- **Частота запуска:** изменить `schedule_interval` в DAG
-- **Мониторинг:** логи Airflow, алерты при падении DAG
-- **CI/CD:** GitHub Actions для `dbt test`, `dbt build` при push
+### Базовые задачи
+
+| Задача | Описание |
+|--------|----------|
+| **Рост данных** | Увеличить число incremental-моделей, партиционирование по дате |
+| **Частота запуска** | Изменить `schedule_interval` в DAG |
+| **Мониторинг** | Логи Airflow, алерты при падении DAG |
+| **CI/CD** | GitHub Actions для `dbt test`, `dbt build` при push |
+
+### Дополнительные задачи масштабирования
+
+| # | Задача | Описание |
+|---|--------|----------|
+| 1 | **Масштабирование Airflow** | Увеличить `AIRFLOW__CELERY__WORKER_CONCURRENCY`, добавить worker'ов при росте DAG |
+| 2 | **Партиционирование PostgreSQL** | Партиционировать большие таблицы (orders, order_items) по order_date |
+| 3 | **Миграция в ClickHouse** | Выгружать аналитические витрины в ClickHouse для OLAP-запросов (через Airflow DAG) |
+| 4 | **S3/MinIO для сырых данных** | Хранить CSV/архивы в MinIO, загружать в БД по расписанию |
+| 5 | **Read replicas** | Настроить read replica PostgreSQL для Metabase при высокой нагрузке |
+| 6 | **Кэширование Metabase** | Включить кэш вопросов, увеличить TTL для тяжёлых дашбордов |
+| 7 | **dbt Semantic Layer** | Использовать metrics.yml для единых метрик в BI (MetricFlow) |
+| 8 | **Горизонтальное масштабирование** | Добавить Celery worker'ы, Redis Cluster при необходимости |
