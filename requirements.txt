@@ -5,3 +5,17 @@ psycopg2-binary
 
 # Прочие библиотеки для Airflow (по необходимости)
 protobuf==4.25.3
+
+# ClickHouse
+clickhouse-driver
+
+# MinIO (S3-совместимое хранилище)
+minio
+
+# Airflow providers
+apache-airflow-providers-apache-spark
+apache-airflow-providers-amazon
+
+# Обработка данных
+pandas
+pyarrow
