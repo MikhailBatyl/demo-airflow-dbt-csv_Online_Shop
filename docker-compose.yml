@@ -88,9 +88,9 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: "${AIRFLOW_LOAD_EXAMPLES}"
       AIRFLOW__API__AUTH_BACKEND: "${AIRFLOW_AUTH_BACKEND}"
       DBT_PROFILES_DIR: /usr/app/.dbt
-      AIRFLOW__WEBSERVER__BASE_URL: "http://localhost:8080"
+      AIRFLOW__WEBSERVER__BASE_URL: "http://localhost:8081"
     ports:
-      - "8080:8080"
+      - "8081:8080"
     command: webserver
     restart: always
     user: "50000:50000"
@@ -258,10 +258,10 @@ services:
     environment:
       # Подключение к отдельной БД для метаданных Metabase (дашборды, вопросы, настройки)
       MB_DB_TYPE: postgres
-      MB_DB_DBNAME: ${MB_DB_NAME:-metabase}
+      MB_DB_DBNAME: ${MB_DB_NAME}
       MB_DB_PORT: 5432
-      MB_DB_USER: ${MB_DB_USER:-metabase}
-      MB_DB_PASS: ${MB_DB_PASSWORD:-metabase}
+      MB_DB_USER: ${MB_DB_USER}
+      MB_DB_PASS: ${MB_DB_PASSWORD}
       MB_DB_HOST: metabase-db
       JAVA_TOOL_OPTIONS: "-Xms512m -Xmx1500m"   # ограничение JVM
       MB_JETTY_MAXTHREADS: "50"                 # снижает расход памяти
@@ -271,3 +271,8 @@ services:
     depends_on:
       metabase-db:
         condition: service_healthy
+
+
+        # Metabase — БД для метаданных (дашборды, вопросы, настройки)
+# Используется контейнер metabase-db, не northwind-db
+

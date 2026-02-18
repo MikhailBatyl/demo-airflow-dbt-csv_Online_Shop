@@ -1,0 +1,94 @@
+version: "3.9"
+
+networks:
+  airflow-net:
+    external: true
+
+volumes:
+  ch_data:
+  minio_data:
+
+services:
+  # ---------- ClickHouse (аналитический движок) ----------
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    container_name: clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    env_file:
+      - .env
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+    volumes:
+      - ch_data:/var/lib/clickhouse
+      - ./02-clickhouse-init.sql:/docker-entrypoint-initdb.d/02-clickhouse-init.sql:ro
+    ports:
+      - "${CLICKHOUSE_HTTP_PORT}"   # HTTP
+      - "${CLICKHOUSE_NATIVE_PORT}" # Native (9003 чтобы не конфликтовать с MinIO)
+    networks:
+      - airflow-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8123/ping || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 1g
+
+  # ---------- MinIO (локальный S3) ----------
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    command: server /data --console-address ":9001"
+    env_file:
+      - .env
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "${MINIO_S3_PORT}"   # S3 API (9002 чтобы не конфликтовать с ClickHouse)
+      - "${MINIO_CONSOLE_PORT}"   # Web-консоль
+    networks:
+      - airflow-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    mem_limit: 512m
+
+  # ---------- Jupyter + PySpark ----------
+  jupyter-pyspark:
+    image: jupyter/pyspark-notebook:latest
+    container_name: jupyter-pyspark
+    env_file:
+      - .env
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN}
+      # Переменные для подключения к сервисам (опционально)
+      CLICKHOUSE_HOST: clickhouse
+      CLICKHOUSE_HTTP_PORT: ${CLICKHOUSE_HTTP_PORT_INTERNAL}
+      MINIO_ENDPOINT: minio
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    ports:
+      - "${JUPYTER_PORT}"
+    networks:
+      - airflow-net
+    restart: unless-stopped
+    depends_on:
+      - clickhouse
+      - minio
+    mem_limit: 2g
